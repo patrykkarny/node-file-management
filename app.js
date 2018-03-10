@@ -13,12 +13,18 @@ const {
 const [command] = argv._;
 
 switch (command) {
-  case ADD_NOTE:
+  case ADD_NOTE: {
+    const note = {
+      title: argv.title,
+      body: argv.body,
+    };
+
     return (
-      notes.addNote(argv.title, argv.body)
+      notes.addNote(note)
         ? console.log('Note created') || notes.logNote(note)
         : console.log('Note title taken')
     );
+  }
 
   case LIST_NOTE:
     return notes.getAll().forEach(note => notes.logNote(note));

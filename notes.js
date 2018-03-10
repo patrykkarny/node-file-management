@@ -12,23 +12,19 @@ const saveNotes = (notes) => {
   fs.writeFileSync('notes-data.json', JSON.stringify(notes));
 }
 
-const addNote = (title, body) => {
+const addNote = (newNote) => {
   let notes = fetchNotes();
 
-  const isNoteExist = notes.some(note => note.title === title);
+  const isNoteExist = notes.some(note => note.title === newNote.title);
 
-  if (isNoteExist) return;
+  if (isNoteExist) return false;
 
-  const note = { title, body };
-
-  notes = [
+  saveNotes([
     ...notes,
-    note,
-  ];
+    newNote,
+  ]);
 
-  saveNotes(notes);
-
-  return note;
+  return true;
 };
 
 const getAll = () => fetchNotes();
